@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DotnetAPI.Data;
+using DotnetAPI.Models;
 
 namespace DotnetAPI.Controllers
 {
@@ -20,17 +21,43 @@ namespace DotnetAPI.Controllers
 
         }
 
-        [HttpGet("users/{testValue}")]
-        public string[] get(string testValue) 
+        [HttpGet("GetUsers")]
+        public IEnumerable<User> GetUsers() 
         {
-            return new string[] {"String1", "String2", testValue};
+
+            string sql = @"
+            SELECT 
+                [UserId],
+                [FirstName],
+                [LastName],
+                [Email],
+                [Gender],
+                [Active]
+            FROM TutorialAppSchema.Users";
+
+            IEnumerable<User> users = _dapperDataContext.LoadData<User>(sql);
+            return users;
+            // return new string[] {"String1", "String2", testValue};
 
         }
 
-        [HttpGet("TestDB")]
-        public DateTime test()
+        [HttpGet("GetSingleUser/{userId}")]
+        public User getSingleUserById(int userId)
         {
-            return _dapperDataContext.LoadSingle<DateTime>("SELECT GETDATE()");
+            var sql = @"
+            SELECT 
+                [UserId],
+                [FirstName],
+                [LastName],
+                [Email],
+                [Gender],
+                [Active]
+            FROM TutorialAppSchema.Users
+            WHERE UserId = " + userId.ToString();
+
+            User user = _dapperDataContext.LoadSingle<User>(sql);
+            return user;
+            // return _dapperDataContext.LoadSingle<DateTime>("SELECT GETDATE()");
         }
 
     }
