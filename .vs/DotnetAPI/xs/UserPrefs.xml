@@ -1,9 +1,7 @@
 ﻿<Properties StartupConfiguration="{D5B79410-7AC0-4550-B6AC-9F9DC90B3A55}|https">
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.DotnetAPI PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/WeatherForecastController.cs">
     <Files>
       <File FileName="Controllers/WeatherForecastController.cs" Line="1" Column="1" />
@@ -13,15 +11,18 @@
         <State name="__root__">
           <Node name="DotnetAPI" expanded="True">
             <Node name="DotnetAPI" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="WeatherForecastController.cs" selected="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Dtos" expanded="True" />
               </Node>
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.DotnetAPI PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
 </Properties>

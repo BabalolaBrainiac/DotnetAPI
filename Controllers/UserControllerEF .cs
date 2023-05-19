@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotnetAPI.Data;
+using DotnetAPI.Data.Repository;
 using DotnetAPI.Models;
 using DotnetAPI.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,13 @@ namespace DotnetAPI.Controllers
     {
         EntityFramewordDataContext _entityFramewordDataContext;
 
-        public UserControllerEF(IConfiguration configuration)
+        IUserRepository _userRepository;
+
+        public UserControllerEF(IConfiguration configuration, IUserRepository userRepository)
         {
             _entityFramewordDataContext = new EntityFramewordDataContext(configuration);
+            _userRepository = userRepository;
+
         }
 
 
@@ -59,7 +64,8 @@ namespace DotnetAPI.Controllers
                userDb.Email = user.Email;
                userDb.Gender = user.Gender;
 
-               if(_entityFramewordDataContext.SaveChanges() > 0)
+
+               if(_userRepository.SaveChanges())
                {
                 return Ok();
 
@@ -83,13 +89,22 @@ namespace DotnetAPI.Controllers
                newUser.Email = user.Email;
                newUser.Gender = user.Gender;
 
-               _entityFramewordDataContext.Add(newUser);
+               _userRepository.AddEntity<User>(newUser);
 
-               if(_entityFramewordDataContext.SaveChanges() > 0)
+
+               if(_userRepository.SaveChanges())
                {
                 return Ok();
 
                }
+
+            //    _entityFramewordDataContext.Add(newUser);
+
+            //    if(_entityFramewordDataContext.SaveChanges() > 0)
+            //    {
+            //     return Ok();
+
+            //    }
 
                throw new Exception("Could not add new User");
         }
@@ -116,5 +131,95 @@ namespace DotnetAPI.Controllers
 
             throw new Exception("Could not find user");
         }
+
+
+        [HttpGet("UserSalary/{userId}")]
+        public UserSalary GetUserSalaryEF(int userId)
+        {
+        return _userRepository.GetSingleUserSalary(userId);
+        }
+
+        [HttpPost("UserSalary")]
+        public IActionResult PostUserSalaryEf(UserSalary userForInsert)
+        {
+            _userRepository.AddEntity<UserSalary>(userForInsert);
+            if (_userRepository.SaveChanges())
+            {
+                return Ok();
+            }
+            throw new Exception("Adding UserSalary failed on save");
+        }
+
+           [HttpPut("UserSalary")]
+    public IActionResult PutUserSalaryEf(UserSalary userForUpdate)
+    {
+        UserSalary? userToUpdate = _userRepository.GetSingleUserSalary(userForUpdate.UserId);
+
+        if (userToUpdate != null)
+        {
+            // _mapper.Map(userToUpdate, userForUpdate);
+            if (_userRepository.SaveChanges())
+            {
+                return Ok();
+            }
+            throw new Exception("Updating UserSalary failed on save");
+        }
+        throw new Exception("Failed to find UserSalary to Update");
+    }
+
+
+    [HttpDelete("UserSalary/{userId}")]
+    public IActionResult DeleteUserSalaryEf(int userId)
+    {
+        UserSalary? userToDelete = _userRepository.GetSingleUserSalary(userId);
+
+        if (userToDelete != null)
+        {
+            _userRepository.RemoveEntity<UserSalary>(userToDelete);
+            if (_userRepository.SaveChanges())
+            {
+                return Ok();
+            }
+            throw new Exception("Deleting UserSalary failed on save");
+        }
+        throw new Exception("Failed to find UserSalary to delete");
+    }
+
+        [HttpGet("UserJobInfo/{userId}")]
+    public UserJobInfo GetUserJobInfoEF(int userId)
+    {
+        return _userRepository.GetSingleUserJobInfo(userId);
+    }
+
+    [HttpPost("UserJobInfo")]
+    public IActionResult PostUserJobInfoEf(UserJobInfo userForInsert)
+    {
+        _userRepository.AddEntity<UserJobInfo>(userForInsert);
+        if (_userRepository.SaveChanges())
+        {
+            return Ok();
+        }
+        throw new Exception("Adding UserJobInfo failed on save");
+    }
+
+
+    [HttpPut("UserJobInfo")]
+    public IActionResult PutUserJobInfoEf(UserJobInfo userForUpdate)
+    {
+        UserJobInfo? userToUpdate = _userRepository.GetSingleUserJobInfo(userForUpdate.UserId);
+
+        if (userToUpdate != null)
+        {
+            // _mapper.Map(userToUpdate, userForUpdate);
+            if (_userRepository.SaveChanges())
+            {
+                return Ok();
+            }
+            throw new Exception("Updating UserJobInfo failed on save");
+        }
+        throw new Exception("Failed to find UserJobInfo to Update");
+    }
+
+
     }
 }
