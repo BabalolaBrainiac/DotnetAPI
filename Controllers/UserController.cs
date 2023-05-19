@@ -60,5 +60,23 @@ namespace DotnetAPI.Controllers
             // return _dapperDataContext.LoadSingle<DateTime>("SELECT GETDATE()");
         }
 
+        // [HttpPut("EditUser")]
+        // public IActionResult EditUser()
+        // {
+
+        //     string sql = @"
+        //     UPDATE TutorialAppSchema.Users
+        //     SET 
+
+        //     ";
+        //     return Ok();
+        // }
+
+        [HttpPost]
+        public IActionResult CreateUser()
+        {
+            return Ok();
+        }
+
     }
 }
