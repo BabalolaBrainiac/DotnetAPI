@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1jzz3eBGKWi7Z4YzoB6iP9HI40JvlP7qKRDU/mcrHmEAvZSo9bEMh4IGMLOtV6LvqSWeeDewELNn/u7liqUWjA==",
+  "dgSpecHash": "bXf1Y5i/UNqAXMwCocG57AwhjFQjM0snFxjaPYg84jHLsQ4yjgAJN9RGkNfdz6zjIuAs0UYK8sI9U7lm5CHUDA==",
   "success": true,
   "projectFilePath": "/Users/opeyemibabalola/Documents/DotnetAPI/DotnetAPI.csproj",
   "expectedPackageFiles": [
+    "/Users/opeyemibabalola/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/opeyemibabalola/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/opeyemibabalola/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/Users/opeyemibabalola/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",

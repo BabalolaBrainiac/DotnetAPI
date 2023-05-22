@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DotnetAPI.Data;
 using DotnetAPI.Data.Repository;
 using DotnetAPI.Models;
@@ -16,12 +17,20 @@ namespace DotnetAPI.Controllers
     {
         EntityFramewordDataContext _entityFramewordDataContext;
 
+        IMapper _mapper;
+
         IUserRepository _userRepository;
 
         public UserControllerEF(IConfiguration configuration, IUserRepository userRepository)
         {
             _entityFramewordDataContext = new EntityFramewordDataContext(configuration);
             _userRepository = userRepository;
+
+             _mapper = new Mapper(new MapperConfiguration(cfg =>{
+            cfg.CreateMap<UserDTO, User>();
+            cfg.CreateMap<UserSalary, UserSalary>();
+            cfg.CreateMap<UserJobInfo, UserJobInfo>();
+        }));
 
         }
 
@@ -149,23 +158,24 @@ namespace DotnetAPI.Controllers
             }
             throw new Exception("Adding UserSalary failed on save");
         }
-
-           [HttpPut("UserSalary")]
-    public IActionResult PutUserSalaryEf(UserSalary userForUpdate)
-    {
-        UserSalary? userToUpdate = _userRepository.GetSingleUserSalary(userForUpdate.UserId);
-
-        if (userToUpdate != null)
+        
+        
+        [HttpPut("UserSalary")]
+        public IActionResult PutUserSalaryEf(UserSalary userForUpdate)
         {
-            // _mapper.Map(userToUpdate, userForUpdate);
-            if (_userRepository.SaveChanges())
+            UserSalary? userToUpdate = _userRepository.GetSingleUserSalary(userForUpdate.UserId);
+
+            if (userToUpdate != null)
             {
-                return Ok();
+                _mapper.Map(userToUpdate, userForUpdate);
+                if (_userRepository.SaveChanges())
+                {
+                    return Ok();
+                }
+                throw new Exception("Updating UserSalary failed on save");
             }
-            throw new Exception("Updating UserSalary failed on save");
+            throw new Exception("Failed to find UserSalary to Update");
         }
-        throw new Exception("Failed to find UserSalary to Update");
-    }
 
 
     [HttpDelete("UserSalary/{userId}")]
@@ -210,7 +220,7 @@ namespace DotnetAPI.Controllers
 
         if (userToUpdate != null)
         {
-            // _mapper.Map(userToUpdate, userForUpdate);
+            _mapper.Map(userToUpdate, userForUpdate);
             if (_userRepository.SaveChanges())
             {
                 return Ok();

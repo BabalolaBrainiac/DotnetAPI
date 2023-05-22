@@ -30,5 +30,27 @@ namespace DotnetAPI.Data
 
             return dbConnection.QuerySingle<T>(sql);
         }
+
+        public bool ExecuteSqlWithParameters(string query, List<SqlParameter> queryParameters)
+        {
+            SqlCommand sqlCommand = new SqlCommand(query);
+
+            foreach (SqlParameter parameter in queryParameters)
+            {
+                sqlCommand.Parameters.Add(parameter);
+            }
+
+            SqlConnection databaseConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+
+            databaseConnection.Open();
+
+            sqlCommand.Connection = databaseConnection;
+            int rowsAltered = sqlCommand.ExecuteNonQuery();
+
+            databaseConnection.Close();
+
+            return rowsAltered > 0;
+
+        }
     }
 }

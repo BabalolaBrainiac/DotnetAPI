@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DotnetAPI.Models;
 
 namespace DotnetAPI.Data.Repository
@@ -10,7 +11,7 @@ namespace DotnetAPI.Data.Repository
     {
         EntityFramewordDataContext _entityFramewordDataContext;
 
-        public UserRepository(IConfiguration configuration)
+        public UserRepository(IConfiguration configuration, IMapper mapper)
         {
             _entityFramewordDataContext = new EntityFramewordDataContext(configuration);
         }
