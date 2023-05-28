@@ -11,9 +11,12 @@ namespace DotnetAPI.Data.Repository
     {
         EntityFramewordDataContext _entityFramewordDataContext;
 
-        public UserRepository(IConfiguration configuration, IMapper mapper)
+        // IMapper _mapper;
+
+        public UserRepository(IConfiguration configuration)
         {
             _entityFramewordDataContext = new EntityFramewordDataContext(configuration);
+            // _mapper = mapper;
         }
 
         public bool SaveChanges()

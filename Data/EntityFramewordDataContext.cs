@@ -11,7 +11,7 @@ namespace DotnetAPI.Data
 {
     public class EntityFramewordDataContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        IConfiguration _config;
+       private readonly IConfiguration _config;
 
         public EntityFramewordDataContext(IConfiguration config)
         {

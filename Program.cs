@@ -1,33 +1,38 @@
-using DotnetAPI.Data.Repository;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string[] allowedDevOrigins = new string[] {
+string[] allowedDevOrigins =
+{
     "testServer", "testServer002"
 };
 
-string[] allowedProdOrigins = new string[] {
+string[] allowedProdOrigins =
+{
     "testServer", "testServer002"
 };
 
-builder.Services.AddCors((options) => {
-    options.AddPolicy("CustomDevPolicy", (policeBuilder) => {
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CustomDevPolicy", policeBuilder =>
+    {
         policeBuilder.WithOrigins(allowedDevOrigins)
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-         .AllowCredentials();
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
 
-builder.Services.AddCors((options) => {
-    options.AddPolicy("CustomProdPolicy", (policeBuilder) => {
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CustomProdPolicy", policeBuilder =>
+    {
         policeBuilder.WithOrigins(allowedProdOrigins)
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -37,10 +42,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+// builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.
@@ -49,13 +55,12 @@ if (app.Environment.IsDevelopment())
     app.UseCors("CustomDevPolicy");
     app.UseSwagger();
     app.UseSwaggerUI();
-} else 
+}
+else
 {
     app.UseCors("CustomProdPolicy");
     app.UseHttpsRedirection();
-
 }
-
 
 
 app.UseAuthorization();

@@ -1,47 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace DotnetAPI.Models.Dtos;
 
-namespace DotnetAPI.Models.Dtos
+public class UserDTO
+
 {
-    public partial class UserDTO
-    
+    public UserDTO()
     {
+        if (FirstName == null) FirstName = "";
 
-        public string FirstName {get; set;}
+        if (LastName == null) LastName = "";
 
-        public string LastName {get; set;}
+        if (Email == null) Email = "";
 
-        public string Email {get; set;}
-
-        public string Gender {get; set;}
-
-        public bool Active {get; set;}
-
-         public UserDTO() 
-    {
-        if(FirstName == null) 
-        {
-            FirstName = "";
-        }
-
-         if(LastName == null) 
-        {
-            LastName = "";
-        }
-
-         if(Email == null) 
-        {
-            Email = "";
-        }
-
-           if(Gender == null) 
-        {
-            Gender = "";
-        }
+        if (Gender == null) Gender = "";
     }
 
-    }
-    
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public string Email { get; set; }
+
+    public string Gender { get; set; }
+
+    public bool Active { get; set; }
 }

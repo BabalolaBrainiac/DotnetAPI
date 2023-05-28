@@ -13,7 +13,6 @@ namespace DotnetAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-
         DapperDataContext _dapperDataContext;
         public UserController(IConfiguration configuration) 
         {

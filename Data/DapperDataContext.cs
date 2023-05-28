@@ -52,5 +52,12 @@ namespace DotnetAPI.Data
             return rowsAltered > 0;
 
         }
+
+
+        public bool ExecuteSql(string sql)
+        {
+            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            return dbConnection.Execute(sql) > 0;
+        }
     }
 }
